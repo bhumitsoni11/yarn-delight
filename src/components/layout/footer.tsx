@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Sparkles, Heart, Mail } from "lucide-react"
+import { Mail, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function Footer() {
@@ -12,102 +12,78 @@ export function Footer() {
     e.preventDefault()
     if (!email) return
     setSubscribed(true)
-    setTimeout(() => {
-      alert(`🎉 Welcome to the Yarn Club! We sent your 15% discount code to ${email}`)
-      setEmail("")
-      setSubscribed(false)
-    }, 500)
   }
 
   return (
-    <footer className="bg-card border-border text-foreground border-t pt-16 pb-12">
-      <div className="mx-auto max-w-7xl space-y-12 px-4 sm:px-6 lg:px-8">
-        {/* Top Newsletter Incentive Box (Gen-Z Vibe) */}
-        <div className="from-primary/25 via-secondary/25 to-accent/25 border-border/80 flex flex-col items-center justify-between gap-6 rounded-3xl border bg-linear-to-r p-8 sm:p-10 lg:flex-row">
-          <div className="space-y-1.5 text-center lg:text-left">
-            <span className="text-primary flex items-center justify-center gap-1 text-xs font-bold tracking-wider uppercase lg:justify-start">
-              <Sparkles className="fill-primary size-3.5" />
-              <span>Join the Yarn Club</span>
+    <footer className="bg-card border-border text-foreground border-t pt-12 pb-10">
+      <div className="mx-auto max-w-7xl space-y-10 px-4 sm:px-6 lg:px-8">
+        {/* Top Newsletter Incentive Box */}
+        <div className="border-border bg-surface flex flex-col items-center justify-between gap-6 rounded-2xl border p-6 sm:p-8 lg:flex-row">
+          <div className="space-y-1 text-center lg:text-left">
+            <span className="text-muted-foreground text-[10px] font-semibold tracking-wider uppercase">
+              Yarn club updates
             </span>
-            <h3 className="font-heading text-foreground text-2xl font-extrabold sm:text-3xl">
-              Unlock 15% OFF Your First Drop
+            <h3 className="font-heading text-foreground text-xl font-bold">
+              15% off your first drop
             </h3>
-            <p className="text-muted-foreground max-w-md text-xs sm:text-sm">
-              Receive secret seasonal drops, crochet care secrets, and VIP custom order slots
-              directly in your inbox.
+            <p className="text-muted-foreground max-w-md text-xs">
+              Seasonal drop notices and custom commission availability sent directly to your inbox.
             </p>
           </div>
 
-          <form onSubmit={handleSubscribe} className="flex w-full gap-2 lg:max-w-md">
-            <div className="relative flex-1">
-              <Mail className="text-muted-foreground absolute top-1/2 left-3.5 size-4 -translate-y-1/2" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address..."
-                className="bg-surface border-border focus:border-primary w-full rounded-full border py-2.5 pr-4 pl-10 text-xs outline-none"
-              />
+          {subscribed ? (
+            <div className="flex items-center gap-2 text-xs font-medium text-emerald-700">
+              <Check className="size-4" />
+              <span>Welcome to the club. Your 15% code has been sent.</span>
             </div>
-            <Button
-              type="submit"
-              disabled={subscribed}
-              className="bg-text hover:bg-text/90 text-surface shrink-0 rounded-full px-6 text-xs font-bold"
-            >
-              {subscribed ? "Subscribed!" : "Join Now"}
-            </Button>
-          </form>
+          ) : (
+            <form onSubmit={handleSubscribe} className="flex w-full gap-2 lg:max-w-sm">
+              <div className="relative flex-1">
+                <Mail className="text-muted-foreground absolute top-1/2 left-3 size-3.5 -translate-y-1/2" />
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter email address"
+                  className="bg-background border-border focus:border-foreground/40 w-full rounded-lg border py-2 pr-3 pl-8 text-xs transition-colors outline-none"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="bg-foreground text-background hover:bg-foreground/90 shrink-0 rounded-lg px-4 text-xs font-semibold active:scale-[0.98]"
+              >
+                Join
+              </Button>
+            </form>
+          )}
         </div>
 
         {/* Multi-column Navigation Links */}
         <div className="grid grid-cols-2 gap-8 text-xs md:grid-cols-4 lg:grid-cols-5">
           {/* Brand Col */}
-          <div className="col-span-2 space-y-4">
+          <div className="col-span-2 space-y-3">
             <div className="flex items-center gap-2">
-              <div className="bg-primary/30 flex size-9 items-center justify-center rounded-2xl text-xl">
-                🧶
+              <div className="bg-primary/15 border-border flex size-8 items-center justify-center rounded-lg border">
+                <span className="font-heading text-foreground text-xs font-bold">YD</span>
               </div>
-              <span className="font-heading text-foreground text-xl font-bold">Yarn Delight</span>
+              <span className="font-heading text-foreground text-base font-bold">Yarn Delight</span>
             </div>
             <p className="text-muted-foreground max-w-sm text-xs leading-relaxed">
-              We are an independent crochet atelier celebrating the slow-made movement. Every single
-              stitch is hooked with patience, using 100% natural, skin-friendly yarns crafted by
-              women artisans across India.
+              An independent slow-craft atelier. Every piece is hooked with patience using
+              hypoallergenic cotton and merino yarns by women artisans in India.
             </p>
-            <div className="flex items-center gap-3 pt-1">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="bg-muted text-muted-foreground hover:text-foreground hover:bg-primary/30 flex size-8 items-center justify-center rounded-full transition-colors"
-              >
-                <svg
-                  className="size-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                </svg>
-              </a>
-              <span className="text-muted-foreground text-[11px] font-medium">
-                @yarndelight.craft
-              </span>
+            <div className="text-muted-foreground flex items-center gap-2 pt-1 text-xs">
+              <span>@yarndelight.craft</span>
             </div>
           </div>
 
           {/* Collections */}
-          <div className="space-y-3">
-            <h4 className="text-foreground text-[11px] font-bold tracking-wider uppercase">
+          <div className="space-y-2.5">
+            <h4 className="text-foreground text-[10px] font-semibold tracking-wider uppercase">
               Collections
             </h4>
-            <ul className="text-muted-foreground space-y-2">
+            <ul className="text-muted-foreground space-y-1.5">
               <li>
                 <a href="#products" className="hover:text-foreground transition-colors">
                   Crochet Handbags
@@ -120,111 +96,77 @@ export function Footer() {
               </li>
               <li>
                 <a href="#products" className="hover:text-foreground transition-colors">
-                  Winter Mufflers & Scarves
+                  Winter Mufflers
                 </a>
               </li>
               <li>
                 <a href="#products" className="hover:text-foreground transition-colors">
-                  Amigurumi Keychains
+                  Amigurumi Charms
                 </a>
               </li>
               <li>
                 <a href="#products" className="hover:text-foreground transition-colors">
-                  Hair & Home Accessories
+                  Accessories
                 </a>
               </li>
             </ul>
           </div>
 
           {/* Custom & Care */}
-          <div className="space-y-3">
-            <h4 className="text-foreground text-[11px] font-bold tracking-wider uppercase">
+          <div className="space-y-2.5">
+            <h4 className="text-foreground text-[10px] font-semibold tracking-wider uppercase">
               Custom & Care
             </h4>
-            <ul className="text-muted-foreground space-y-2">
+            <ul className="text-muted-foreground space-y-1.5">
               <li>
                 <a href="#custom-studio" className="hover:text-foreground transition-colors">
-                  Bespoke Commission Studio
+                  Commission Studio
                 </a>
               </li>
               <li>
                 <a href="#custom-studio" className="hover:text-foreground transition-colors">
-                  Colorway Swatch Palette
+                  Swatch Palette
                 </a>
               </li>
               <li>
                 <a href="#products" className="hover:text-foreground transition-colors">
-                  Yarn Care & Washing Manual
-                </a>
-              </li>
-              <li>
-                <a href="#products" className="hover:text-foreground transition-colors">
-                  Artisan Collective Stories
+                  Yarn Care Manual
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Customer Support */}
-          <div className="space-y-3">
-            <h4 className="text-foreground text-[11px] font-bold tracking-wider uppercase">
-              Help & Policies
+          {/* Delivery & Trust */}
+          <div className="space-y-2.5">
+            <h4 className="text-foreground text-[10px] font-semibold tracking-wider uppercase">
+              Shipping & Help
             </h4>
-            <ul className="text-muted-foreground space-y-2">
+            <ul className="text-muted-foreground space-y-1.5">
               <li>
-                <span className="hover:text-foreground cursor-pointer">Track Your Parcel</span>
+                <span className="text-muted-foreground">Pan-India via Shiprocket</span>
               </li>
               <li>
-                <span className="hover:text-foreground cursor-pointer">
-                  Shipping & Delivery Info
-                </span>
+                <span className="text-muted-foreground">Free delivery above ₹999</span>
               </li>
               <li>
-                <span className="hover:text-foreground cursor-pointer">
-                  7-Day Easy Exchange Policy
-                </span>
+                <span className="text-muted-foreground">7-Day exchange guarantee</span>
               </li>
               <li>
-                <span className="hover:text-foreground cursor-pointer">
-                  Privacy & Cookie Policy
-                </span>
-              </li>
-              <li>
-                <span className="hover:text-foreground cursor-pointer">Terms of Service</span>
+                <span className="text-muted-foreground">help@yarndelight.in</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Payment Badges */}
-        <div className="border-border text-muted-foreground flex flex-col items-center justify-between gap-4 border-t pt-8 text-xs sm:flex-row">
-          <p className="flex items-center gap-1">
-            © {new Date().getFullYear()} Yarn Delight. Crafted with{" "}
-            <Heart className="inline size-3 fill-rose-500 text-rose-500" /> in India.
+        {/* Bottom Bar */}
+        <div className="border-border/60 text-muted-foreground flex flex-col items-center justify-between gap-4 border-t pt-6 text-xs sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} Yarn Delight. Crafted with slow-made integrity in India.
           </p>
-
-          {/* Payment Badges (Flipkart Trust Vibe) */}
-          <div className="flex items-center gap-2">
-            <span className="text-muted-foreground/80 text-[10px] font-bold uppercase">
-              Secured by Razorpay:
-            </span>
-            <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold">
-              <span className="bg-surface border-border text-foreground rounded border px-2 py-0.5">
-                UPI
-              </span>
-              <span className="bg-surface border-border text-foreground rounded border px-2 py-0.5">
-                RuPay
-              </span>
-              <span className="bg-surface border-border text-foreground rounded border px-2 py-0.5">
-                Visa
-              </span>
-              <span className="bg-surface border-border text-foreground rounded border px-2 py-0.5">
-                Mastercard
-              </span>
-              <span className="rounded border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-emerald-700">
-                COD
-              </span>
-            </div>
+          <div className="flex gap-4 text-[11px]">
+            <span className="text-muted-foreground">Razorpay UPI & Cards</span>
+            <span>•</span>
+            <span className="text-muted-foreground">Shiprocket Logistics</span>
           </div>
         </div>
       </div>

@@ -23,6 +23,7 @@ export function buildContentSecurityPolicy(isDev = process.env.NODE_ENV === "dev
       "data:",
       "https://*.supabase.co",
       "https://checkout.razorpay.com",
+      "https://images.unsplash.com",
     ],
     "font-src": ["'self'", "data:"],
     "connect-src": [
@@ -32,7 +33,9 @@ export function buildContentSecurityPolicy(isDev = process.env.NODE_ENV === "dev
       "https://api.razorpay.com",
       "https://lumberjack.razorpay.com",
       "https://*.sentry.io",
-      ...(isDev ? ["ws://localhost:*", "http://localhost:*"] : []),
+      ...(isDev
+        ? ["ws://localhost:*", "http://localhost:*", "ws://127.0.0.1:*", "http://127.0.0.1:*"]
+        : []),
     ],
     "frame-src": ["'self'", "https://api.razorpay.com", "https://checkout.razorpay.com"],
     "object-src": ["'none'"],

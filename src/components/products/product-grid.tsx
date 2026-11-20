@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { SlidersHorizontal, Sparkles } from "lucide-react"
+import { SlidersHorizontal } from "lucide-react"
 import type { StoreProduct } from "@/data/products"
 import { ProductCard } from "./product-card"
 
@@ -50,7 +50,6 @@ export function ProductGrid({
         list.sort((a, b) => b.rating - a.rating)
         break
       default:
-        // Featured default
         break
     }
 
@@ -63,18 +62,17 @@ export function ProductGrid({
         {/* Section Header */}
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <div className="text-primary mb-1 flex items-center gap-1.5 text-xs font-bold tracking-widest uppercase">
-              <Sparkles className="fill-primary size-3.5" />
-              <span>Handcrafted Collections</span>
-            </div>
-            <h2 className="font-heading text-foreground text-3xl font-bold tracking-tight sm:text-4xl">
+            <span className="text-muted-foreground text-[11px] font-semibold tracking-wider uppercase">
+              Handcrafted catalog
+            </span>
+            <h2 className="font-heading text-foreground mt-0.5 text-3xl font-bold tracking-tight">
               {searchQuery?.trim()
                 ? `Results for "${searchQuery.trim()}"`
                 : activeCategory && activeCategory !== "all"
                   ? `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1).replace("-", " ")} Drops`
                   : "Curated Handmade Creations"}
             </h2>
-            <p className="text-muted-foreground mt-1 max-w-xl text-sm">
+            <p className="text-muted-foreground mt-1 max-w-xl text-xs sm:text-sm">
               Each piece is individually crocheted by artisan hands using hypoallergenic, premium
               milk cotton and merino wool yarns.
             </p>
@@ -82,69 +80,68 @@ export function ProductGrid({
 
           {/* Sort & Filter Controls (Flipkart Utility) */}
           <div className="flex items-center gap-3 self-start md:self-auto">
-            <div className="bg-surface border-border text-foreground flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium shadow-xs">
+            <div className="bg-surface border-border text-foreground flex items-center gap-2 rounded-xl border px-3 py-1.5 text-xs font-medium">
               <SlidersHorizontal className="text-muted-foreground size-3.5" />
-              <span className="text-muted-foreground hidden sm:inline">Sort by:</span>
+              <span className="text-muted-foreground hidden sm:inline">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="cursor-pointer border-none bg-transparent font-semibold outline-none"
+                className="cursor-pointer border-none bg-transparent font-medium outline-none"
               >
-                <option value="featured">Featured Picks</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="rating">Highest Rated</option>
+                <option value="featured">Featured picks</option>
+                <option value="price-asc">Price: Low to high</option>
+                <option value="price-desc">Price: High to low</option>
+                <option value="rating">Highest rated</option>
               </select>
             </div>
           </div>
         </div>
 
         {/* Micro-Filter Tag Pills */}
-        <div className="mb-6 flex scrollbar-none items-center gap-2 overflow-x-auto pb-4 text-xs">
-          <span className="text-muted-foreground mr-1 shrink-0 text-[11px] font-semibold tracking-wider uppercase">
+        <div className="mb-6 flex scrollbar-none items-center gap-2 overflow-x-auto pb-2 text-xs">
+          <span className="text-muted-foreground mr-1 shrink-0 text-[10px] font-medium tracking-wider uppercase">
             Tags:
           </span>
           {availableTags.map((tag) => (
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`rounded-full px-3 py-1 whitespace-nowrap capitalize transition-all ${
+              className={`rounded-lg px-3 py-1 whitespace-nowrap capitalize transition-colors ${
                 selectedTag === tag
-                  ? "bg-primary text-text scale-105 font-bold shadow-xs"
+                  ? "bg-foreground text-background font-semibold"
                   : "bg-surface hover:bg-muted text-muted-foreground border-border border"
               }`}
             >
               #{tag}
             </button>
           ))}
-          <span className="text-muted-foreground ml-auto hidden shrink-0 text-xs sm:inline">
-            Showing <strong>{filteredAndSortedProducts.length}</strong> items
+          <span className="text-muted-foreground ml-auto hidden shrink-0 font-mono text-xs tabular-nums sm:inline">
+            Showing {filteredAndSortedProducts.length} pieces
           </span>
         </div>
 
         {/* Product Cards Grid */}
         {filteredAndSortedProducts.length === 0 ? (
-          <div className="bg-surface border-border space-y-4 rounded-3xl border border-dashed p-8 py-16 text-center">
-            <span className="text-4xl">🔍</span>
-            <h3 className="font-heading text-foreground text-xl font-bold">
+          <div className="bg-surface border-border space-y-4 rounded-2xl border border-dashed p-8 py-16 text-center">
+            <h3 className="font-heading text-foreground text-base font-semibold">
               No matching pieces found
             </h3>
-            <p className="text-muted-foreground mx-auto max-w-md text-sm">
+            <p className="text-muted-foreground mx-auto max-w-md text-xs">
               We couldn&apos;t find anything matching your search. Try resetting filters or request
-              a bespoke crochet piece!
+              a bespoke crochet piece.
             </p>
             <button
               onClick={() => {
                 setSelectedTag("all")
                 onResetFilters?.()
               }}
-              className="bg-primary text-text rounded-full px-5 py-2 text-xs font-semibold shadow-xs transition-transform hover:scale-105"
+              className="bg-foreground text-background hover:bg-foreground/90 rounded-lg px-4 py-1.5 text-xs font-semibold transition-colors active:scale-[0.98]"
             >
-              Reset All Filters
+              Reset filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredAndSortedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

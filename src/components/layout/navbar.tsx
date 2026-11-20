@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Search, ShoppingBag, Heart, Sparkles, Menu, X } from "lucide-react"
+import { Search, ShoppingBag, Heart, Menu, X } from "lucide-react"
 import { useCartStore } from "@/store/cart.store"
 import { Button } from "@/components/ui/button"
 import { CROCHET_CATEGORIES } from "@/constants/categories"
@@ -30,20 +30,19 @@ export function Navbar({ onSearchChange, onSelectCategory, selectedCategory }: N
   }
 
   return (
-    <header className="bg-background/95 border-border sticky top-0 z-40 border-b shadow-xs backdrop-blur-md transition-all">
+    <header className="bg-background/95 border-border sticky top-0 z-40 border-b backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between gap-4">
+        <div className="flex h-18 items-center justify-between gap-4">
           {/* Brand Logo */}
           <Link href="/" className="group flex shrink-0 items-center gap-2.5">
-            <div className="bg-primary/30 border-primary/40 flex size-11 items-center justify-center rounded-2xl border shadow-xs transition-transform group-hover:scale-105">
-              <span className="text-xl">🧶</span>
+            <div className="bg-primary/15 border-border flex size-9 items-center justify-center rounded-xl border">
+              <span className="font-heading text-foreground text-sm font-bold">YD</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-heading text-foreground flex items-center gap-1.5 text-2xl font-bold tracking-tight">
+              <span className="font-heading text-foreground text-xl font-bold tracking-tight">
                 Yarn Delight
-                <Sparkles className="text-primary fill-primary/40 size-4" />
               </span>
-              <span className="text-muted-foreground text-[10px] font-medium tracking-widest uppercase">
+              <span className="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
                 Artisan Crochet • India
               </span>
             </div>
@@ -57,8 +56,8 @@ export function Navbar({ onSearchChange, onSelectCategory, selectedCategory }: N
                 type="text"
                 value={searchVal}
                 onChange={handleSearch}
-                placeholder="Search tote bags, mufflers, amigurumi charms..."
-                className="bg-surface border-border focus:border-primary focus:ring-primary/20 placeholder:text-muted-foreground w-full rounded-full border py-2 pr-4 pl-10 text-sm transition-all outline-none focus:ring-3"
+                placeholder="Search tote bags, mufflers, charms..."
+                className="bg-surface border-border focus:border-foreground/40 placeholder:text-muted-foreground w-full rounded-xl border py-2 pr-4 pl-10 text-xs transition-colors outline-none"
               />
               {searchVal && (
                 <button
@@ -79,12 +78,12 @@ export function Navbar({ onSearchChange, onSelectCategory, selectedCategory }: N
             {/* Wishlist Button */}
             <button
               onClick={() => setWishlistCount((c) => c + 1)}
-              className="hover:bg-muted text-foreground group relative rounded-full p-2.5 transition-colors"
+              className="hover:bg-muted text-foreground group relative rounded-lg p-2 transition-colors"
               title="Your Wishlist"
             >
-              <Heart className="text-foreground group-hover:text-primary size-5 transition-colors" />
+              <Heart className="text-muted-foreground group-hover:text-foreground size-5 transition-colors" />
               {wishlistCount > 0 && (
-                <span className="bg-accent text-accent-foreground absolute top-1 right-1 flex size-4 items-center justify-center rounded-full text-[10px] font-bold shadow-xs">
+                <span className="bg-secondary text-foreground absolute top-1 right-1 flex size-4 items-center justify-center rounded-full font-mono text-[10px] font-bold tabular-nums">
                   {wishlistCount}
                 </span>
               )}
@@ -94,94 +93,54 @@ export function Navbar({ onSearchChange, onSelectCategory, selectedCategory }: N
             <Button
               onClick={toggleCart}
               variant="default"
-              className="bg-primary hover:bg-primary/90 text-text relative flex items-center gap-2 rounded-full px-4 py-2 font-medium shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="bg-foreground text-background hover:bg-foreground/90 relative flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold shadow-xs transition-colors active:scale-[0.98]"
             >
               <ShoppingBag className="size-4" />
               <span className="hidden sm:inline">Bag</span>
               {totalQuantity > 0 && (
-                <span className="bg-text text-surface flex size-5 animate-bounce items-center justify-center rounded-full text-xs font-bold">
+                <span className="bg-background text-foreground py-0.2 rounded-md px-1.5 font-mono text-[11px] font-bold tabular-nums">
                   {totalQuantity}
                 </span>
               )}
             </Button>
 
-            {/* Mobile Menu Hamburger */}
+            {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-foreground hover:bg-muted rounded-xl p-2 md:hidden"
+              className="hover:bg-muted text-foreground rounded-lg p-2 md:hidden"
             >
-              {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+              {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Search Bar */}
-        <div className="pb-3 md:hidden">
-          <div className="relative w-full">
-            <Search className="text-muted-foreground absolute top-1/2 left-3.5 size-4 -translate-y-1/2" />
-            <input
-              type="text"
-              value={searchVal}
-              onChange={handleSearch}
-              placeholder="Search crochet goods..."
-              className="bg-surface border-border focus:border-primary w-full rounded-full border py-2 pr-4 pl-10 text-sm outline-none"
-            />
-          </div>
-        </div>
-
-        {/* Category Horizontal Nav Bar (Desktop & Mobile Scroll) */}
-        <nav className="border-border/40 flex scrollbar-none items-center gap-1.5 overflow-x-auto border-t py-2.5 text-xs font-medium">
+        {/* Category Filter Horizontal Bar */}
+        <div className="border-border/60 flex scrollbar-none items-center gap-2 overflow-x-auto border-t py-2.5">
           <button
             onClick={() => onSelectCategory?.("all")}
-            className={`rounded-full px-3.5 py-1.5 whitespace-nowrap transition-all ${
+            className={`rounded-lg px-3 py-1 text-xs whitespace-nowrap transition-colors ${
               !selectedCategory || selectedCategory === "all"
-                ? "bg-text text-surface font-semibold shadow-xs"
-                : "bg-surface hover:bg-muted text-muted-foreground border-border border"
+                ? "bg-foreground text-background font-semibold"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
             }`}
           >
-            ✨ All Creations
+            All Pieces
           </button>
-          {CROCHET_CATEGORIES.map((cat) => {
-            const isSelected = selectedCategory === cat.slug
-            return (
-              <button
-                key={cat.slug}
-                onClick={() => onSelectCategory?.(cat.slug)}
-                className={`rounded-full px-3.5 py-1.5 whitespace-nowrap transition-all ${
-                  isSelected
-                    ? "bg-text text-surface font-semibold shadow-xs"
-                    : "bg-surface hover:bg-muted text-muted-foreground border-border border"
-                }`}
-              >
-                {cat.name}
-              </button>
-            )
-          })}
-        </nav>
-      </div>
-
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="border-border bg-card space-y-3 border-t p-4 md:hidden">
-          <div className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
-            Explore Collections
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            {CROCHET_CATEGORIES.map((cat) => (
-              <button
-                key={cat.slug}
-                onClick={() => {
-                  onSelectCategory?.(cat.slug)
-                  setMobileMenuOpen(false)
-                }}
-                className="bg-muted/60 hover:bg-muted text-foreground rounded-xl px-3 py-2 text-left text-sm"
-              >
-                {cat.name}
-              </button>
-            ))}
-          </div>
+          {CROCHET_CATEGORIES.map((cat) => (
+            <button
+              key={cat.slug}
+              onClick={() => onSelectCategory?.(cat.slug)}
+              className={`rounded-lg px-3 py-1 text-xs whitespace-nowrap transition-colors ${
+                selectedCategory === cat.slug
+                  ? "bg-foreground text-background font-semibold"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`}
+            >
+              {cat.name}
+            </button>
+          ))}
         </div>
-      )}
+      </div>
     </header>
   )
 }

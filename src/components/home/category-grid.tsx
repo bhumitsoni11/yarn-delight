@@ -1,46 +1,49 @@
 "use client"
 
 import { CROCHET_CATEGORIES } from "@/constants/categories"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, ShoppingBag, Wallet, Flower2, Wind, Scissors, Layers } from "lucide-react"
 
 interface CategoryGridProps {
   onSelectCategory: (slug: string) => void
 }
 
-const CATEGORY_VISUALS: Record<string, { emoji: string; bg: string; count: string }> = {
-  handbags: { emoji: "👜", bg: "bg-primary/20", count: "8 Designs" },
-  purses: { emoji: "👛", bg: "bg-secondary/30", count: "12 Designs" },
-  keychains: { emoji: "🌸", bg: "bg-accent/30", count: "24 Charms" },
-  mufflers: { emoji: "🧣", bg: "bg-amber-100", count: "6 Warm Drops" },
-  accessories: { emoji: "✨", bg: "bg-rose-100", count: "18 Essentials" },
-  "custom-orders": { emoji: "🧵", bg: "bg-emerald-100", count: "Bespoke" },
+const CATEGORY_ICONS: Record<
+  string,
+  { icon: React.ComponentType<{ className?: string }>; count: string }
+> = {
+  handbags: { icon: ShoppingBag, count: "8 Designs" },
+  purses: { icon: Wallet, count: "12 Designs" },
+  keychains: { icon: Flower2, count: "24 Charms" },
+  mufflers: { icon: Wind, count: "6 Warm Drops" },
+  accessories: { icon: Scissors, count: "18 Essentials" },
+  "custom-orders": { icon: Layers, count: "Bespoke" },
 }
 
 export function CategoryGrid({ onSelectCategory }: CategoryGridProps) {
   return (
-    <section id="categories" className="bg-surface/50 border-border/60 scroll-mt-24 border-y py-12">
+    <section id="categories" className="bg-surface/40 border-border scroll-mt-24 border-b py-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
+        <div className="mb-6 flex flex-col justify-between gap-1 sm:flex-row sm:items-end">
           <div>
-            <span className="text-primary text-xs font-bold tracking-widest uppercase">
-              Browse by Craft
+            <span className="text-muted-foreground text-[11px] font-semibold tracking-wider uppercase">
+              Browse by craft
             </span>
-            <h2 className="font-heading text-foreground mt-0.5 text-3xl font-bold tracking-tight">
-              Explore Product Lines
+            <h2 className="font-heading text-foreground mt-0.5 text-2xl font-bold tracking-tight">
+              Product Lines
             </h2>
           </div>
-          <p className="text-muted-foreground text-xs sm:text-sm">
-            Pick your favorite stitch aesthetic or commission a bespoke creation.
+          <p className="text-muted-foreground text-xs">
+            Filter by stitch collection or commission a bespoke piece.
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-6">
           {CROCHET_CATEGORIES.map((cat) => {
-            const visual = CATEGORY_VISUALS[cat.slug] || {
-              emoji: "🧶",
-              bg: "bg-muted",
+            const visual = CATEGORY_ICONS[cat.slug] || {
+              icon: ShoppingBag,
               count: "Curated",
             }
+            const Icon = visual.icon
 
             return (
               <div
@@ -49,26 +52,22 @@ export function CategoryGrid({ onSelectCategory }: CategoryGridProps) {
                   onSelectCategory(cat.slug)
                   document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })
                 }}
-                className="group border-border bg-card hover:border-primary/60 hover:shadow-card relative flex cursor-pointer flex-col justify-between rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1"
+                className="group border-border bg-card hover:border-foreground/30 relative flex cursor-pointer flex-col justify-between rounded-xl border p-3.5 transition-colors"
               >
                 <div className="flex items-start justify-between">
-                  <div
-                    className={`size-12 rounded-2xl ${visual.bg} flex items-center justify-center text-2xl transition-transform group-hover:scale-110`}
-                  >
-                    {visual.emoji}
+                  <div className="bg-muted text-foreground flex size-9 items-center justify-center rounded-lg">
+                    <Icon className="size-4.5" />
                   </div>
-                  <div className="bg-muted/60 group-hover:bg-primary group-hover:text-text flex size-6 items-center justify-center rounded-full transition-colors">
+                  <div className="text-muted-foreground group-hover:text-foreground flex size-5 items-center justify-center transition-colors">
                     <ArrowUpRight className="size-3.5" />
                   </div>
                 </div>
 
-                <div className="mt-4">
-                  <h3 className="font-heading text-foreground group-hover:text-primary-foreground line-clamp-1 text-sm font-bold transition-colors">
+                <div className="mt-3">
+                  <h3 className="font-heading text-foreground line-clamp-1 text-xs font-semibold">
                     {cat.name}
                   </h3>
-                  <span className="text-muted-foreground text-[11px] font-medium">
-                    {visual.count}
-                  </span>
+                  <span className="text-muted-foreground text-[10px]">{visual.count}</span>
                 </div>
               </div>
             )

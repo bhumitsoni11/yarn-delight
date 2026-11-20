@@ -42,7 +42,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
   return (
     <div
       onClick={() => onQuickView?.(product)}
-      className="group border-border bg-card hover:shadow-card relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1"
+      className="group border-border bg-card hover:border-foreground/30 relative flex cursor-pointer flex-col overflow-hidden rounded-xl border transition-colors"
     >
       {/* Product Image Area */}
       <div className="bg-muted/40 relative aspect-square w-full overflow-hidden">
@@ -53,29 +53,31 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             width={500}
             height={500}
             unoptimized
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-102"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-5xl">🧶</div>
+          <div className="text-muted-foreground flex h-full w-full items-center justify-center">
+            <ShoppingBag className="size-10 stroke-1" />
+          </div>
         )}
 
         {/* Badges (Top Left) */}
-        <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
+        <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1">
           {product.badge && (
             <span
-              className={`rounded-full px-2.5 py-1 text-[11px] font-bold tracking-wider uppercase shadow-xs ${
+              className={`rounded-md px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${
                 product.badge === "Bestseller"
-                  ? "bg-secondary text-text"
+                  ? "bg-foreground text-background"
                   : product.badge === "New Drop"
-                    ? "bg-accent text-accent-foreground"
-                    : "bg-primary text-text"
+                    ? "bg-surface border-border text-foreground border"
+                    : "bg-surface text-foreground"
               }`}
             >
               {product.badge}
             </span>
           )}
           {discountPercent > 0 && (
-            <span className="rounded-full bg-rose-500 px-2 py-0.5 text-[10px] font-bold text-white shadow-xs">
+            <span className="rounded-md bg-rose-600 px-1.5 py-0.5 font-mono text-[10px] font-bold text-white tabular-nums">
               {discountPercent}% OFF
             </span>
           )}
@@ -87,11 +89,11 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             e.stopPropagation()
             setIsWishlisted(!isWishlisted)
           }}
-          className="bg-surface/90 text-foreground absolute top-3 right-3 z-10 flex size-9 items-center justify-center rounded-full shadow-xs backdrop-blur-xs transition-all hover:scale-110 active:scale-90"
-          title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+          className="bg-surface/90 text-foreground border-border/60 hover:bg-surface absolute top-2.5 right-2.5 z-10 flex size-8 items-center justify-center rounded-lg border backdrop-blur-xs transition-colors active:scale-[0.98]"
+          title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
         >
           <Heart
-            className={`size-4.5 transition-colors ${
+            className={`size-4 transition-colors ${
               isWishlisted
                 ? "fill-rose-500 text-rose-500"
                 : "text-muted-foreground group-hover:text-foreground"
@@ -100,52 +102,54 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
         </button>
 
         {/* Rating Floating Tag */}
-        <div className="bg-surface/90 text-foreground absolute bottom-2.5 left-2.5 flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold shadow-xs backdrop-blur-xs">
+        <div className="bg-surface/90 border-border/60 text-foreground absolute bottom-2 left-2 flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-[10px] font-medium backdrop-blur-xs">
           <Star className="size-3 fill-amber-500 text-amber-500" />
-          <span>{product.rating.toFixed(1)}</span>
-          <span className="text-muted-foreground text-[10px]">({product.reviewCount})</span>
+          <span className="font-mono tabular-nums">{product.rating.toFixed(1)}</span>
+          <span className="text-muted-foreground font-mono text-[9px] tabular-nums">
+            ({product.reviewCount})
+          </span>
         </div>
       </div>
 
       {/* Product Details Area */}
-      <div className="flex flex-1 flex-col justify-between gap-3 p-4">
+      <div className="flex flex-1 flex-col justify-between gap-3 p-3.5">
         <div>
-          <span className="text-muted-foreground text-[11px] font-semibold tracking-wider uppercase">
+          <span className="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
             {product.categorySlug.replace("-", " ")}
           </span>
-          <h3 className="font-heading text-foreground group-hover:text-primary-foreground mt-0.5 line-clamp-1 text-base font-bold transition-colors">
+          <h3 className="font-heading text-foreground mt-0.5 line-clamp-1 text-sm font-semibold transition-colors">
             {product.title}
           </h3>
-          <p className="text-muted-foreground mt-1 line-clamp-2 text-xs">{product.description}</p>
+          <p className="text-muted-foreground mt-1 line-clamp-2 text-xs leading-relaxed">
+            {product.description}
+          </p>
         </div>
 
         {/* Price & Add to Cart Action */}
-        <div className="border-border/60 flex items-center justify-between gap-2 border-t pt-2">
+        <div className="border-border/60 flex items-center justify-between gap-2 border-t pt-2.5">
           <div className="flex flex-col">
             <div className="flex items-baseline gap-1.5">
-              <span className="text-foreground text-base font-bold">
+              <span className="text-foreground font-mono text-sm font-bold tabular-nums">
                 ₹{(product.pricePaise / 100).toLocaleString("en-IN")}
               </span>
               {product.compareAtPricePaise && (
-                <span className="text-muted-foreground text-xs line-through">
+                <span className="text-muted-foreground font-mono text-[11px] tabular-nums line-through">
                   ₹{(product.compareAtPricePaise / 100).toLocaleString("en-IN")}
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-medium text-emerald-600">
-              Free Delivery above ₹999
-            </span>
+            <span className="text-muted-foreground text-[10px]">Free delivery above ₹999</span>
           </div>
 
           <Button
             onClick={handleAddToCart}
             size="sm"
             variant="default"
-            className="bg-primary hover:bg-primary/90 text-text h-9 rounded-xl px-3 text-xs font-bold shadow-xs transition-all hover:scale-105 active:scale-95"
+            className="bg-foreground text-background hover:bg-foreground/90 h-8 rounded-lg px-3 text-xs font-semibold shadow-xs transition-colors active:scale-[0.98]"
           >
             {justAdded ? (
               <>
-                <Check className="size-3.5 text-emerald-700" />
+                <Check className="size-3.5" />
                 <span>Added</span>
               </>
             ) : (

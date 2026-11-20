@@ -15,6 +15,8 @@ export function CartDrawer() {
   const [discountPercent, setDiscountPercent] = useState(0)
   const [promoMessage, setPromoMessage] = useState("")
   const [isCheckingOut, setIsCheckingOut] = useState(false)
+  const [checkoutComplete, setCheckoutComplete] = useState(false)
+  const [orderId, setOrderId] = useState<string | null>(null)
 
   if (!isOpen) return null
 
@@ -36,10 +38,10 @@ export function CartDrawer() {
     const code = promoCode.trim().toUpperCase()
     if (code === "STITCH10") {
       setDiscountPercent(10)
-      setPromoMessage("✨ 'STITCH10' applied: 10% discount added!")
+      setPromoMessage("STITCH10 applied: 10% discount added")
     } else {
       setDiscountPercent(0)
-      setPromoMessage("❌ Invalid discount code. Try 'STITCH10'")
+      setPromoMessage("Invalid coupon code. Try STITCH10")
     }
   }
 
@@ -47,9 +49,8 @@ export function CartDrawer() {
     setIsCheckingOut(true)
     setTimeout(() => {
       setIsCheckingOut(false)
-      alert(
-        `🎉 Razorpay Checkout Ready!\nTotal Payable: ₹${(totalPaise / 100).toLocaleString("en-IN")}\n\nIn Phase 2, this triggers the live Razorpay UPI / Card modal with order ID tracking.`
-      )
+      setOrderId(`YD-${Math.floor(100000 + Math.random() * 900000)}`)
+      setCheckoutComplete(true)
     }, 600)
   }
 
@@ -58,69 +59,71 @@ export function CartDrawer() {
       {/* Backdrop */}
       <div
         onClick={() => setCartOpen(false)}
-        className="animate-in fade-in fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
       />
 
       {/* Slide-over Drawer Container */}
-      <div className="bg-card border-border animate-in slide-in-from-right relative z-10 flex h-full w-full max-w-md flex-col border-l shadow-2xl duration-300">
+      <div className="bg-card border-border relative z-10 flex h-full w-full max-w-md flex-col border-l shadow-xl">
         {/* Drawer Header */}
-        <div className="border-border bg-surface/50 flex items-center justify-between border-b p-5">
+        <div className="border-border bg-surface/50 flex items-center justify-between border-b p-4">
           <div className="flex items-center gap-2">
-            <div className="bg-primary/30 text-primary-foreground flex size-8 items-center justify-center rounded-full">
-              <ShoppingBag className="size-4" />
+            <div className="bg-muted text-foreground flex size-7 items-center justify-center rounded-lg">
+              <ShoppingBag className="size-3.5" />
             </div>
             <div>
-              <h2 className="font-heading text-foreground text-lg font-bold">Your Shopping Bag</h2>
-              <span className="text-muted-foreground text-xs">
+              <h2 className="font-heading text-foreground text-sm font-semibold">Shopping Bag</h2>
+              <span className="text-muted-foreground font-mono text-[11px]">
                 {items.length} {items.length === 1 ? "item" : "items"}
               </span>
             </div>
           </div>
           <button
             onClick={() => setCartOpen(false)}
-            className="hover:bg-muted text-muted-foreground hover:text-foreground rounded-full p-2 transition-colors"
+            className="hover:bg-muted text-muted-foreground hover:text-foreground rounded-lg p-1.5 transition-colors"
           >
-            <X className="size-5" />
+            <X className="size-4" />
           </button>
         </div>
 
-        {/* Free Shipping Progress Indicator (Flipkart / Myntra Style) */}
+        {/* Free Shipping Progress Indicator */}
         {items.length > 0 && (
-          <div className="bg-secondary/40 border-border border-b p-3 text-xs">
-            <div className="text-foreground mb-1.5 flex items-center justify-between font-medium">
+          <div className="bg-muted/30 border-border border-b p-3 text-xs">
+            <div className="text-foreground mb-1 flex items-center justify-between text-[11px] font-medium">
               {isFreeShipping ? (
-                <span className="flex items-center gap-1 font-semibold text-emerald-700">
-                  🎉 You unlocked FREE Pan-India Delivery!
+                <span className="font-medium text-emerald-700">
+                  Free Pan-India delivery unlocked
                 </span>
               ) : (
                 <span>
                   Add{" "}
-                  <strong>₹{(remainingForFreeShippingPaise / 100).toLocaleString("en-IN")}</strong>{" "}
-                  more to get <strong>FREE Delivery</strong>
+                  <strong className="font-mono tabular-nums">
+                    ₹{(remainingForFreeShippingPaise / 100).toLocaleString("en-IN")}
+                  </strong>{" "}
+                  more for free delivery
                 </span>
               )}
-              <span className="text-muted-foreground text-[10px] font-semibold">
+              <span className="text-muted-foreground font-mono text-[10px] tabular-nums">
                 {progressPercent}%
               </span>
             </div>
-            <div className="bg-muted h-2 w-full overflow-hidden rounded-full">
+            <div className="bg-muted h-1.5 w-full overflow-hidden rounded-full">
               <div
-                className="bg-primary h-full rounded-full transition-all duration-300"
+                className="bg-foreground h-full rounded-full transition-all duration-300"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
           </div>
         )}
 
-        {/* Cart Line Items */}
-        <div className="flex-1 space-y-4 overflow-y-auto p-5">
+        {/* Bag Items List Area */}
+        <div className="flex-1 space-y-3 overflow-y-auto p-4">
           {items.length === 0 ? (
-            <div className="flex h-full flex-col items-center justify-center space-y-4 p-6 text-center">
-              <div className="bg-muted flex size-20 items-center justify-center rounded-full text-3xl">
-                🧶
+            <div className="flex h-full flex-col items-center justify-center space-y-3 text-center">
+              <div className="bg-muted text-muted-foreground flex size-12 items-center justify-center rounded-xl">
+                <ShoppingBag className="size-6 stroke-1" />
               </div>
               <div>
-                <h3 className="font-heading text-foreground text-lg font-bold">
+                <h3 className="font-heading text-foreground text-sm font-semibold">
                   Your bag is empty
                 </h3>
                 <p className="text-muted-foreground mt-1 max-w-xs text-xs">
@@ -129,31 +132,31 @@ export function CartDrawer() {
               </div>
               <Button
                 onClick={() => setCartOpen(false)}
-                className="bg-primary hover:bg-primary/90 text-text rounded-full px-6 font-semibold"
+                className="bg-foreground text-background hover:bg-foreground/90 rounded-lg px-4 text-xs font-semibold"
               >
-                Explore Collections
+                Explore collections
               </Button>
             </div>
           ) : (
             items.map((item) => (
               <div
                 key={item.id}
-                className="border-border/80 bg-surface hover:border-primary/50 flex gap-3.5 rounded-2xl border p-3.5 shadow-xs transition-colors"
+                className="border-border bg-surface flex gap-3 rounded-xl border p-3 transition-colors"
               >
                 {/* Thumbnail */}
-                <div className="bg-muted border-border size-20 shrink-0 overflow-hidden rounded-xl border">
+                <div className="bg-muted border-border size-16 shrink-0 overflow-hidden rounded-lg border">
                   {item.imageUrl ? (
                     <Image
                       src={item.imageUrl}
                       alt={item.title}
-                      width={80}
-                      height={80}
+                      width={64}
+                      height={64}
                       unoptimized
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-2xl">
-                      🧶
+                    <div className="text-muted-foreground flex h-full w-full items-center justify-center">
+                      <ShoppingBag className="size-5" />
                     </div>
                   )}
                 </div>
@@ -161,38 +164,39 @@ export function CartDrawer() {
                 {/* Details */}
                 <div className="flex min-w-0 flex-1 flex-col justify-between">
                   <div className="flex items-start justify-between gap-2">
-                    <h4 className="text-foreground truncate text-sm font-medium">{item.title}</h4>
+                    <h4 className="text-foreground truncate text-xs font-medium">{item.title}</h4>
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-muted-foreground hover:text-destructive p-1 transition-colors"
-                      title="Remove item"
+                      className="text-muted-foreground transition-colors hover:text-rose-600"
+                      title="Remove"
                     >
-                      <Trash2 className="size-4" />
+                      <Trash2 className="size-3.5" />
                     </button>
                   </div>
 
-                  <div className="mt-2 flex items-center justify-between">
-                    {/* Quantity Stepper */}
-                    <div className="border-border bg-muted/40 flex items-center rounded-lg border">
+                  <div className="flex items-end justify-between pt-1">
+                    <span className="text-foreground font-mono text-xs font-bold tabular-nums">
+                      ₹{((item.pricePaise * item.quantity) / 100).toLocaleString("en-IN")}
+                    </span>
+
+                    {/* Stepper */}
+                    <div className="border-border bg-background flex items-center rounded-lg border">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="hover:bg-muted text-muted-foreground hover:text-foreground rounded-l p-1"
+                        className="hover:bg-muted text-muted-foreground hover:text-foreground p-1 transition-colors"
                       >
                         <Minus className="size-3" />
                       </button>
-                      <span className="px-2 text-xs font-semibold">{item.quantity}</span>
+                      <span className="w-5 text-center font-mono text-xs font-medium tabular-nums">
+                        {item.quantity}
+                      </span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="hover:bg-muted text-muted-foreground hover:text-foreground rounded-r p-1"
+                        className="hover:bg-muted text-muted-foreground hover:text-foreground p-1 transition-colors"
                       >
                         <Plus className="size-3" />
                       </button>
                     </div>
-
-                    {/* Price */}
-                    <span className="text-foreground text-sm font-semibold">
-                      ₹{((item.pricePaise * item.quantity) / 100).toLocaleString("en-IN")}
-                    </span>
                   </div>
                 </div>
               </div>
@@ -200,81 +204,103 @@ export function CartDrawer() {
           )}
         </div>
 
-        {/* Drawer Footer (Summary & Checkout) */}
+        {/* Drawer Footer Summary (Flipkart Checkout Flow) */}
         {items.length > 0 && (
-          <div className="border-border bg-surface/50 space-y-4 border-t p-5">
+          <div className="border-border bg-surface/50 space-y-3.5 border-t p-4 text-xs">
             {/* Promo Code Input */}
-            <div className="space-y-1">
-              <div className="flex gap-2">
-                <div className="relative flex-1">
-                  <Tag className="text-muted-foreground absolute top-1/2 left-3 size-3.5 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    value={promoCode}
-                    onChange={(e) => setPromoCode(e.target.value)}
-                    placeholder="Discount code (try STITCH10)"
-                    className="border-border bg-card focus:border-primary w-full rounded-xl border py-1.5 pr-3 pl-9 font-mono text-xs tracking-wider uppercase outline-none"
-                  />
-                </div>
-                <button
-                  onClick={handleApplyPromo}
-                  className="bg-muted hover:bg-muted/80 text-foreground rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors"
-                >
-                  Apply
-                </button>
+            <div className="flex gap-2">
+              <div className="relative flex-1">
+                <Tag className="text-muted-foreground absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Coupon (try STITCH10)"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                  className="bg-background border-border focus:border-foreground/40 w-full rounded-lg border py-1.5 pr-3 pl-8 font-mono text-xs uppercase outline-none"
+                />
               </div>
-              {promoMessage && (
-                <p className="pl-1 text-[11px] font-medium text-emerald-600">{promoMessage}</p>
-              )}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleApplyPromo}
+                className="border-border text-foreground rounded-lg text-xs"
+              >
+                Apply
+              </Button>
             </div>
+            {promoMessage && (
+              <p
+                className={`text-[11px] ${
+                  discountPercent > 0 ? "font-medium text-emerald-700" : "text-rose-600"
+                }`}
+              >
+                {promoMessage}
+              </p>
+            )}
 
-            {/* Calculations Breakdown */}
-            <div className="text-muted-foreground border-border/40 space-y-1.5 border-t pt-3 text-xs">
-              <div className="flex justify-between">
+            {/* Price Breakdown */}
+            <div className="border-border/60 space-y-1.5 border-t pt-2 text-xs">
+              <div className="text-muted-foreground flex justify-between">
                 <span>Subtotal</span>
-                <span>₹{(subtotalPaise / 100).toLocaleString("en-IN")}</span>
+                <span className="text-foreground font-mono tabular-nums">
+                  ₹{(subtotalPaise / 100).toLocaleString("en-IN")}
+                </span>
               </div>
-              {discountAmountPaise > 0 && (
-                <div className="flex justify-between font-medium text-emerald-600">
+              {discountPercent > 0 && (
+                <div className="flex justify-between text-emerald-700">
                   <span>Discount ({discountPercent}%)</span>
-                  <span>-₹{(discountAmountPaise / 100).toLocaleString("en-IN")}</span>
+                  <span className="font-mono tabular-nums">
+                    -₹{(discountAmountPaise / 100).toLocaleString("en-IN")}
+                  </span>
                 </div>
               )}
-              <div className="flex justify-between">
+              <div className="text-muted-foreground flex justify-between">
                 <span>Shipping</span>
                 <span>
                   {shippingFeePaise === 0 ? (
-                    <span className="font-semibold text-emerald-600">FREE</span>
+                    <span className="font-medium text-emerald-700">Free</span>
                   ) : (
-                    `₹${(shippingFeePaise / 100).toLocaleString("en-IN")}`
+                    <span className="font-mono tabular-nums">
+                      ₹{(shippingFeePaise / 100).toLocaleString("en-IN")}
+                    </span>
                   )}
                 </span>
               </div>
-              <div className="text-foreground border-border/80 flex justify-between border-t pt-2 text-sm font-bold">
-                <span>Estimated Total</span>
-                <span>₹{(totalPaise / 100).toLocaleString("en-IN")}</span>
+              <div className="border-border/80 text-foreground flex items-baseline justify-between border-t pt-2 font-bold">
+                <span>Total</span>
+                <span className="font-heading font-mono text-base tabular-nums">
+                  ₹{(totalPaise / 100).toLocaleString("en-IN")}
+                </span>
               </div>
             </div>
 
-            {/* Razorpay Pay CTA */}
-            <Button
-              onClick={handleCheckout}
-              disabled={isCheckingOut}
-              className="bg-primary hover:bg-primary/90 text-text flex h-12 w-full items-center justify-center gap-2 rounded-xl text-sm font-bold shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
-            >
-              {isCheckingOut ? (
-                <span>Connecting Razorpay...</span>
-              ) : (
-                <>
-                  <span>Pay ₹{(totalPaise / 100).toLocaleString("en-IN")} with Razorpay</span>
-                  <ArrowRight className="size-4" />
-                </>
-              )}
-            </Button>
+            {checkoutComplete ? (
+              <div className="border-border/80 bg-muted/40 rounded-lg border p-3 text-center text-xs">
+                <p className="font-semibold text-emerald-700">Razorpay test checkout initialized</p>
+                <p className="text-muted-foreground mt-0.5 font-mono text-[10px]">
+                  Order ID: {orderId}
+                </p>
+              </div>
+            ) : (
+              <Button
+                onClick={handleCheckout}
+                disabled={isCheckingOut}
+                className="bg-foreground text-background hover:bg-foreground/90 flex h-10 w-full items-center justify-center gap-2 rounded-xl text-xs font-semibold transition-colors active:scale-[0.98]"
+              >
+                {isCheckingOut ? (
+                  <span>Initializing checkout...</span>
+                ) : (
+                  <>
+                    <span>Proceed to checkout</span>
+                    <ArrowRight className="size-3.5" />
+                  </>
+                )}
+              </Button>
+            )}
 
-            <div className="text-muted-foreground flex items-center justify-center gap-2 text-[10px]">
-              <ShieldCheck className="size-3.5 text-emerald-600" />
-              <span>100% Secure Payment via Razorpay UPI & Cards</span>
+            <div className="text-muted-foreground flex items-center justify-center gap-1.5 text-[10px]">
+              <ShieldCheck className="size-3 text-emerald-600" />
+              <span>Razorpay 256-bit SSL secured • UPI & COD available</span>
             </div>
           </div>
         )}
