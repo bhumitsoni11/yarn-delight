@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowRight, Star, ShieldCheck } from "lucide-react"
+import { ArrowRight, Star, ShieldCheck, Heart } from "lucide-react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
@@ -11,40 +11,30 @@ interface HeroSectionProps {
 
 export function HeroSection({ onShopClick, onCustomClick }: HeroSectionProps) {
   return (
-    <section className="bg-background border-border relative border-b py-12 lg:py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="bg-surface border-border relative border-b py-12 lg:py-16">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
           {/* Left Column: Headlines & Call to Actions */}
           <div className="space-y-6 text-center lg:col-span-7 lg:text-left">
             {/* Handcrafted Tag Badge */}
-            <div className="bg-surface border-border text-foreground mx-auto inline-flex items-center gap-2 rounded-lg border px-3 py-1 text-xs font-medium lg:mx-0">
-              <span className="size-2 rounded-full bg-emerald-600" />
-              <span>Winter &apos;26 Drop</span>
+            <div className="bg-primary-container/40 border-primary/20 text-on-primary-container mx-auto inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-semibold lg:mx-0">
+              <span className="bg-primary size-2 rounded-full" />
+              <span>Spring Solstice Drop • Studio Edition</span>
               <span className="text-muted-foreground">•</span>
-              <span className="text-muted-foreground">100% Pure Milk Cotton</span>
+              <span>100% Organic Cotton</span>
             </div>
 
-            {/* Main Catchphrase */}
-            <h1 className="font-heading text-foreground text-4xl leading-[1.12] font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-              Wearable Art, <br />
-              <span className="text-foreground relative inline-block">
-                Hand-Stitched
-                <svg
-                  className="text-primary/70 absolute -bottom-2 left-0 -z-10 h-3 w-full"
-                  viewBox="0 0 100 20"
-                  preserveAspectRatio="none"
-                  fill="currentColor"
-                >
-                  <path d="M0,15 Q50,0 100,15 L100,20 Q50,5 0,20 Z" />
-                </svg>
-              </span>{" "}
-              For You.
+            {/* Main Editorial Headline */}
+            <h1 className="font-heading text-on-surface text-4xl leading-[1.12] font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+              Artisanal Knots, <br />
+              <span className="text-primary font-normal italic">Wearable Art.</span> <br />
+              Handcrafted for You.
             </h1>
 
             {/* Sub-headline */}
             <p className="text-muted-foreground mx-auto max-w-xl text-sm leading-relaxed sm:text-base lg:mx-0">
-              Slow-made crochet handbags, mufflers, and custom pieces individually hooked by
-              independent women artisans across India. No mass production.
+              Lovingly made by women artisans in Gujarat using sustainably sourced organic cotton
+              and combed highland wool. Pure slow fashion designed to be treasured for generations.
             </p>
 
             {/* Dual CTAs */}
@@ -54,7 +44,7 @@ export function HeroSection({ onShopClick, onCustomClick }: HeroSectionProps) {
                   if (onShopClick) onShopClick()
                   else document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })
                 }}
-                className="bg-foreground text-background hover:bg-foreground/90 flex h-11 w-full items-center justify-center gap-2 rounded-xl px-6 text-xs font-semibold shadow-xs transition-colors active:scale-[0.98] sm:w-auto"
+                className="bg-inverse-surface text-on-primary hover:bg-inverse-surface/90 flex h-12 w-full items-center justify-center gap-2 rounded-full px-7 text-xs font-semibold shadow-md transition-colors active:scale-[0.98] sm:w-auto"
               >
                 <span>Shop New Drops</span>
                 <ArrowRight className="size-3.5" />
@@ -67,29 +57,29 @@ export function HeroSection({ onShopClick, onCustomClick }: HeroSectionProps) {
                     document.getElementById("custom-studio")?.scrollIntoView({ behavior: "smooth" })
                 }}
                 variant="outline"
-                className="border-border bg-surface hover:bg-muted text-foreground h-11 w-full rounded-xl border px-6 text-xs font-semibold shadow-xs transition-colors active:scale-[0.98] sm:w-auto"
+                className="border-border bg-surface-container-lowest hover:bg-surface-container text-on-surface h-12 w-full rounded-full border px-7 text-xs font-semibold shadow-xs transition-colors active:scale-[0.98] sm:w-auto"
               >
-                <span>Custom Commission Studio</span>
+                <span>Commission Custom Piece</span>
               </Button>
             </div>
 
-            {/* Verified Trust Stats */}
-            <div className="border-border/80 mx-auto grid max-w-md grid-cols-3 gap-4 border-t pt-6 text-center lg:mx-0 lg:text-left">
+            {/* Verified Trust Stats Ribbon */}
+            <div className="bg-surface-container-low/70 border-border/60 mx-auto grid max-w-md grid-cols-3 gap-3 rounded-2xl border p-4 text-center lg:mx-0 lg:text-left">
               <div>
-                <span className="font-heading text-foreground font-mono text-xl font-bold tabular-nums">
-                  5,000+
+                <span className="font-heading text-primary font-mono text-xl font-bold tabular-nums">
+                  4,800+
                 </span>
-                <p className="text-muted-foreground text-xs">Stitches hooked</p>
+                <p className="text-muted-foreground text-[11px]">Heirloom pieces</p>
               </div>
               <div>
-                <span className="font-heading text-foreground flex items-center justify-center gap-1 font-mono text-xl font-bold tabular-nums lg:justify-start">
-                  4.9 <Star className="inline size-3.5 fill-amber-500 text-amber-500" />
+                <span className="font-heading text-secondary flex items-center justify-center gap-1 font-mono text-xl font-bold tabular-nums lg:justify-start">
+                  4.9 <Star className="fill-secondary text-secondary inline size-3.5" />
                 </span>
-                <p className="text-muted-foreground text-xs">Verified reviews</p>
+                <p className="text-muted-foreground text-[11px]">Customer love</p>
               </div>
               <div>
-                <span className="font-heading text-foreground text-xl font-bold">Pan-India</span>
-                <p className="text-muted-foreground text-xs">Express delivery</p>
+                <span className="font-heading text-tertiary text-xl font-bold">18</span>
+                <p className="text-muted-foreground text-[11px]">Female artisans</p>
               </div>
             </div>
           </div>
@@ -97,43 +87,51 @@ export function HeroSection({ onShopClick, onCustomClick }: HeroSectionProps) {
           {/* Right Column: Hero Visual Showcase */}
           <div className="relative flex items-center justify-center lg:col-span-5">
             {/* Main Showcase Card */}
-            <div className="bg-surface border-border group relative w-full max-w-sm rounded-2xl border p-4 shadow-sm">
-              <div className="bg-muted/40 relative aspect-square w-full overflow-hidden rounded-xl">
+            <div className="bg-surface-container-lowest border-border/80 group relative w-full max-w-md rounded-3xl border p-3.5 shadow-xl">
+              <div className="bg-surface-container relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=800&auto=format&fit=crop"
-                  alt="Strawberry Blossom Handbag"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJx3Z5kB1jbdGZZPuL7PQIo8LPuKw17n8Y9mLpK9fygOQ9sM9a3KvUOkzKPoIslRiFaKx8G4KjFE1Y8uwgYN-zu6rM64hB4dNp8NtaDeFw5N5SIINjZYqPizSIFoQtoZ8iud-18mN9wsu0YSci-T_HyfTxUwNfBIzFHgYgCkzpsqj3PZDOH4-sws43JZDPUrUdzVcfT0IYTLUU8kd-5MFk7Fche2Ji07_cnoeykZ8"
+                  alt="Editorial handcrafted crochet boutique collection"
                   width={800}
-                  height={800}
+                  height={1000}
                   unoptimized
                   priority
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-102"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-102"
                 />
-                <span className="bg-surface/90 border-border/80 text-foreground absolute top-3 left-3 rounded-md border px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase backdrop-blur-xs">
-                  Bestseller
-                </span>
-              </div>
 
-              <div className="mt-4 flex items-center justify-between">
-                <div>
-                  <h3 className="font-heading text-foreground text-sm font-semibold">
-                    Strawberry Blossom Tote
-                  </h3>
-                  <p className="text-muted-foreground text-xs">100% Milk cotton yarn</p>
-                </div>
-                <div className="text-right">
-                  <span className="text-foreground font-mono text-sm font-bold tabular-nums">
-                    ₹1,699
+                {/* Floating Badge 1: 100% Hand-Stitched */}
+                <div className="bg-surface/90 border-border/80 absolute top-4 left-4 flex items-center gap-1.5 rounded-full border px-3 py-1 shadow-sm backdrop-blur-md">
+                  <ShieldCheck className="text-primary size-3.5" />
+                  <span className="font-mono text-[10px] font-bold tracking-wider uppercase">
+                    100% Hand-Stitched
                   </span>
-                  <p className="text-muted-foreground font-mono text-[11px] tabular-nums line-through">
-                    ₹2,299
-                  </p>
+                </div>
+
+                {/* Floating Badge 2: Micro Batch */}
+                <div className="bg-secondary-container text-on-secondary-container absolute bottom-4 left-4 rounded-full px-3 py-1 text-[10px] font-bold tracking-wider uppercase shadow-sm">
+                  Micro Batch • 8 Left
                 </div>
               </div>
 
-              {/* Artisan Note */}
-              <div className="border-border/60 bg-muted/30 text-muted-foreground mt-3 flex items-center gap-2 rounded-lg border p-2 text-[11px]">
-                <ShieldCheck className="size-3.5 shrink-0 text-emerald-600" />
-                <span>Fair-wage certified • Crafted in Gujarat</span>
+              {/* Overlapping Mini Teaser Card (The Rosebud Tote) */}
+              <div className="bg-surface-container-lowest border-border/80 absolute -bottom-5 -left-4 flex items-center gap-3 rounded-2xl border p-3 shadow-xl backdrop-blur-md sm:left-4">
+                <div className="bg-primary-container size-12 shrink-0 overflow-hidden rounded-xl">
+                  <Image
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5F8HlNs4AFhg3MeJC3KmWZx-Gb0AuLb1ITIISy1JUc0J_zBjJLyH7C2NKoqtycspa_TXBqP0MU5y81gafmCDHqGm-cA0vq2upGNFTnNkiGh93y3ZeG4U1ztuAUDCz0-CU7MlKjMTHR-L9BbG-djr-9Oj-A2dxJ67-WioLKlahJbmz-nD6zH_KGboir75kvQ7yn8nRMb3xmZvUWFibmfIuqsr6LSA0RkpOuGhji84"
+                    alt="Rosebud Tote macro stitch preview"
+                    width={48}
+                    height={48}
+                    unoptimized
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="font-heading text-on-surface text-xs font-bold">The Rosebud Tote</p>
+                  <p className="text-primary font-mono text-xs font-bold tabular-nums">₹3,499</p>
+                </div>
+                <div className="bg-primary-container text-on-primary-container ml-2 flex size-6 items-center justify-center rounded-full">
+                  <Heart className="fill-primary size-3" />
+                </div>
               </div>
             </div>
           </div>

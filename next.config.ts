@@ -5,17 +5,19 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   allowedDevOrigins: ["127.0.0.1", "localhost", "127.0.0.1:3000", "localhost:3000"],
-  allowedDevOrigins: [
-    "127.0.0.1",
-    "localhost",
-    "127.0.0.1:3000",
-    "localhost:3000",
-  ],
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "*.supabase.co",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
   },

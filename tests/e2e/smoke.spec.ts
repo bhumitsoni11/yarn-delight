@@ -5,7 +5,7 @@ test.describe("Next.js Storefront E2E Suite", () => {
     await page.goto("/")
 
     // Verify page title
-    await expect(page).toHaveTitle(/Crochet Store/)
+    await expect(page).toHaveTitle(/Crochet/)
 
     // Verify main brand presence
     await expect(page.getByText("Yarn Delight").first()).toBeVisible()

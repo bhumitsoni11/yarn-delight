@@ -24,6 +24,7 @@ export function buildContentSecurityPolicy(isDev = process.env.NODE_ENV === "dev
       "https://*.supabase.co",
       "https://checkout.razorpay.com",
       "https://images.unsplash.com",
+      "https://lh3.googleusercontent.com",
     ],
     "font-src": ["'self'", "data:"],
     "connect-src": [

@@ -57,30 +57,33 @@ export function ProductGrid({
   }, [products, selectedTag, sortBy])
 
   return (
-    <section id="products" className="scroll-mt-24 py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="products" className="scroll-mt-24 py-14">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
         {/* Section Header */}
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <span className="text-muted-foreground text-[11px] font-semibold tracking-wider uppercase">
-              Handcrafted catalog
-            </span>
-            <h2 className="font-heading text-foreground mt-0.5 text-3xl font-bold tracking-tight">
+            <div className="mb-1 flex items-center gap-2">
+              <span className="bg-primary size-2 rounded-full" />
+              <span className="text-primary text-[11px] font-bold tracking-widest uppercase">
+                Fresh Off The Hook
+              </span>
+            </div>
+            <h2 className="font-heading text-on-surface text-3xl font-bold tracking-tight sm:text-4xl">
               {searchQuery?.trim()
                 ? `Results for "${searchQuery.trim()}"`
                 : activeCategory && activeCategory !== "all"
-                  ? `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1).replace("-", " ")} Drops`
-                  : "Curated Handmade Creations"}
+                  ? `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1).replace("-", " ")} Releases`
+                  : "Handcrafted Studio Releases"}
             </h2>
             <p className="text-muted-foreground mt-1 max-w-xl text-xs sm:text-sm">
-              Each piece is individually crocheted by artisan hands using hypoallergenic, premium
-              milk cotton and merino wool yarns.
+              Individually hooked using organic cotton, combed highland wool, and hypoallergenic
+              yarns.
             </p>
           </div>
 
           {/* Sort & Filter Controls (Flipkart Utility) */}
           <div className="flex items-center gap-3 self-start md:self-auto">
-            <div className="bg-surface border-border text-foreground flex items-center gap-2 rounded-xl border px-3 py-1.5 text-xs font-medium">
+            <div className="bg-surface-container-lowest border-border/80 text-on-surface flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium shadow-xs">
               <SlidersHorizontal className="text-muted-foreground size-3.5" />
               <span className="text-muted-foreground hidden sm:inline">Sort:</span>
               <select
@@ -99,17 +102,17 @@ export function ProductGrid({
 
         {/* Micro-Filter Tag Pills */}
         <div className="mb-6 flex scrollbar-none items-center gap-2 overflow-x-auto pb-2 text-xs">
-          <span className="text-muted-foreground mr-1 shrink-0 text-[10px] font-medium tracking-wider uppercase">
+          <span className="text-muted-foreground mr-1 shrink-0 text-[10px] font-semibold tracking-wider uppercase">
             Tags:
           </span>
           {availableTags.map((tag) => (
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`rounded-lg px-3 py-1 whitespace-nowrap capitalize transition-colors ${
+              className={`rounded-full px-3 py-1 whitespace-nowrap capitalize transition-colors ${
                 selectedTag === tag
-                  ? "bg-foreground text-background font-semibold"
-                  : "bg-surface hover:bg-muted text-muted-foreground border-border border"
+                  ? "bg-primary text-on-primary font-semibold shadow-xs"
+                  : "bg-surface-container-lowest hover:bg-surface-container text-muted-foreground border-border/80 border"
               }`}
             >
               #{tag}
@@ -122,20 +125,20 @@ export function ProductGrid({
 
         {/* Product Cards Grid */}
         {filteredAndSortedProducts.length === 0 ? (
-          <div className="bg-surface border-border space-y-4 rounded-2xl border border-dashed p-8 py-16 text-center">
-            <h3 className="font-heading text-foreground text-base font-semibold">
+          <div className="bg-surface-container-lowest border-border/80 space-y-4 rounded-3xl border border-dashed p-8 py-16 text-center">
+            <h3 className="font-heading text-on-surface text-base font-semibold">
               No matching pieces found
             </h3>
             <p className="text-muted-foreground mx-auto max-w-md text-xs">
-              We couldn&apos;t find anything matching your search. Try resetting filters or request
-              a bespoke crochet piece.
+              We couldn&apos;t find anything matching your search. Try resetting filters or
+              commission a custom piece.
             </p>
             <button
               onClick={() => {
                 setSelectedTag("all")
                 onResetFilters?.()
               }}
-              className="bg-foreground text-background hover:bg-foreground/90 rounded-lg px-4 py-1.5 text-xs font-semibold transition-colors active:scale-[0.98]"
+              className="bg-primary text-on-primary hover:bg-primary/90 rounded-full px-4 py-1.5 text-xs font-semibold shadow-xs transition-colors active:scale-[0.98]"
             >
               Reset filters
             </button>

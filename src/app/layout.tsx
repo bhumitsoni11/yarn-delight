@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
-import { Plus_Jakarta_Sans } from "next/font/google"
+import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { QueryProvider } from "@/components/providers/query-provider"
 
@@ -10,10 +10,16 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 })
 
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
-  title: "Crochet Store | Handmade Crochet Creations",
+  title: "Yarn Delight | Atelier Crochet Luxury Handmade Boutique",
   description:
-    "Artisan handmade crochet handbags, mufflers, keychains, and custom accessories crafted with love in India.",
+    "Artisanal slow-fashion crochet handbags, mufflers, clutches, and custom bespoke commissions lovingly hand-stitched in India.",
 }
 
 export default function RootLayout({
@@ -22,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", plusJakartaSans.variable)}>
+    <html lang="en" className={cn("font-sans", plusJakartaSans.variable, playfairDisplay.variable)}>
       <body className="bg-background text-foreground min-h-screen antialiased">
         <QueryProvider>{children}</QueryProvider>
       </body>

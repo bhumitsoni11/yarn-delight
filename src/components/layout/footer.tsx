@@ -15,45 +15,45 @@ export function Footer() {
   }
 
   return (
-    <footer className="bg-card border-border text-foreground border-t pt-12 pb-10">
-      <div className="mx-auto max-w-7xl space-y-10 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-surface border-border text-on-surface border-t pt-14 pb-12">
+      <div className="mx-auto max-w-[1440px] space-y-12 px-4 sm:px-6 lg:px-12">
         {/* Top Newsletter Incentive Box */}
-        <div className="border-border bg-surface flex flex-col items-center justify-between gap-6 rounded-2xl border p-6 sm:p-8 lg:flex-row">
+        <div className="border-border/80 bg-surface-container-low/60 flex flex-col items-center justify-between gap-6 rounded-3xl border p-6 shadow-xs sm:p-8 lg:flex-row">
           <div className="space-y-1 text-center lg:text-left">
-            <span className="text-muted-foreground text-[10px] font-semibold tracking-wider uppercase">
-              Yarn club updates
+            <span className="text-primary text-[10px] font-bold tracking-wider uppercase">
+              Join the Atelier Yarn Club
             </span>
-            <h3 className="font-heading text-foreground text-xl font-bold">
-              15% off your first drop
+            <h3 className="font-heading text-on-surface text-2xl font-bold">
+              Unlock 15% off your first drop
             </h3>
-            <p className="text-muted-foreground max-w-md text-xs">
-              Seasonal drop notices and custom commission availability sent directly to your inbox.
+            <p className="text-muted-foreground max-w-md text-xs sm:text-sm">
+              Receive secret seasonal drops, crochet care guides, and VIP custom order slots.
             </p>
           </div>
 
           {subscribed ? (
-            <div className="flex items-center gap-2 text-xs font-medium text-emerald-700">
+            <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700">
               <Check className="size-4" />
               <span>Welcome to the club. Your 15% code has been sent.</span>
             </div>
           ) : (
-            <form onSubmit={handleSubscribe} className="flex w-full gap-2 lg:max-w-sm">
+            <form onSubmit={handleSubscribe} className="flex w-full gap-2 lg:max-w-md">
               <div className="relative flex-1">
-                <Mail className="text-muted-foreground absolute top-1/2 left-3 size-3.5 -translate-y-1/2" />
+                <Mail className="text-muted-foreground absolute top-1/2 left-3.5 size-4 -translate-y-1/2" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter email address"
-                  className="bg-background border-border focus:border-foreground/40 w-full rounded-lg border py-2 pr-3 pl-8 text-xs transition-colors outline-none"
+                  placeholder="Enter your email address"
+                  className="bg-surface-container-lowest border-border/80 focus:border-primary/60 w-full rounded-full border py-2.5 pr-4 pl-10 text-xs transition-colors outline-none"
                 />
               </div>
               <Button
                 type="submit"
-                className="bg-foreground text-background hover:bg-foreground/90 shrink-0 rounded-lg px-4 text-xs font-semibold active:scale-[0.98]"
+                className="bg-inverse-surface text-on-primary hover:bg-inverse-surface/90 shrink-0 rounded-full px-6 text-xs font-semibold shadow-xs active:scale-[0.98]"
               >
-                Join
+                Join Now
               </Button>
             </form>
           )}
@@ -62,86 +62,94 @@ export function Footer() {
         {/* Multi-column Navigation Links */}
         <div className="grid grid-cols-2 gap-8 text-xs md:grid-cols-4 lg:grid-cols-5">
           {/* Brand Col */}
-          <div className="col-span-2 space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="bg-primary/15 border-border flex size-8 items-center justify-center rounded-lg border">
-                <span className="font-heading text-foreground text-xs font-bold">YD</span>
+          <div className="col-span-2 space-y-3.5">
+            <div className="flex items-center gap-2.5">
+              <div className="bg-primary-container/40 border-primary/20 flex size-9 items-center justify-center rounded-xl border">
+                <span className="font-heading text-primary text-sm font-bold">YD</span>
               </div>
-              <span className="font-heading text-foreground text-base font-bold">Yarn Delight</span>
+              <span className="font-heading text-on-surface text-lg font-bold">Yarn Delight</span>
             </div>
             <p className="text-muted-foreground max-w-sm text-xs leading-relaxed">
-              An independent slow-craft atelier. Every piece is hooked with patience using
-              hypoallergenic cotton and merino yarns by women artisans in India.
+              An independent slow-craft crochet atelier celebrating slow fashion. Every single
+              stitch is hooked with patience, using 100% natural, skin-friendly yarns crafted by
+              women artisans in Gujarat, India.
             </p>
             <div className="text-muted-foreground flex items-center gap-2 pt-1 text-xs">
-              <span>@yarndelight.craft</span>
+              <span className="text-primary font-medium">@yarndelight.craft</span>
+              <span>•</span>
+              <span>Handmade in Gujarat</span>
             </div>
           </div>
 
           {/* Collections */}
-          <div className="space-y-2.5">
-            <h4 className="text-foreground text-[10px] font-semibold tracking-wider uppercase">
+          <div className="space-y-3">
+            <h4 className="text-on-surface font-mono text-[10px] font-bold tracking-wider uppercase">
               Collections
             </h4>
-            <ul className="text-muted-foreground space-y-1.5">
+            <ul className="text-muted-foreground space-y-2">
               <li>
-                <a href="#products" className="hover:text-foreground transition-colors">
+                <a href="#products" className="hover:text-primary transition-colors">
                   Crochet Handbags
                 </a>
               </li>
               <li>
-                <a href="#products" className="hover:text-foreground transition-colors">
-                  Shoulder Slings & Purses
+                <a href="#products" className="hover:text-primary transition-colors">
+                  Purses &amp; Clutches
                 </a>
               </li>
               <li>
-                <a href="#products" className="hover:text-foreground transition-colors">
-                  Winter Mufflers
+                <a href="#products" className="hover:text-primary transition-colors">
+                  Winter Mufflers &amp; Wraps
                 </a>
               </li>
               <li>
-                <a href="#products" className="hover:text-foreground transition-colors">
+                <a href="#products" className="hover:text-primary transition-colors">
                   Amigurumi Charms
                 </a>
               </li>
               <li>
-                <a href="#products" className="hover:text-foreground transition-colors">
-                  Accessories
+                <a href="#products" className="hover:text-primary transition-colors">
+                  Hair Barrettes &amp; Collars
                 </a>
               </li>
             </ul>
           </div>
 
           {/* Custom & Care */}
-          <div className="space-y-2.5">
-            <h4 className="text-foreground text-[10px] font-semibold tracking-wider uppercase">
-              Custom & Care
+          <div className="space-y-3">
+            <h4 className="text-on-surface font-mono text-[10px] font-bold tracking-wider uppercase">
+              Custom &amp; Care
             </h4>
-            <ul className="text-muted-foreground space-y-1.5">
+            <ul className="text-muted-foreground space-y-2">
               <li>
-                <a href="#custom-studio" className="hover:text-foreground transition-colors">
-                  Commission Studio
+                <a href="#custom-studio" className="hover:text-primary transition-colors">
+                  Bespoke Commission Studio
                 </a>
               </li>
               <li>
-                <a href="#custom-studio" className="hover:text-foreground transition-colors">
-                  Swatch Palette
+                <a href="#custom-studio" className="hover:text-primary transition-colors">
+                  Swatch Video Palette
                 </a>
               </li>
               <li>
-                <a href="#products" className="hover:text-foreground transition-colors">
-                  Yarn Care Manual
+                <a href="#products" className="hover:text-primary transition-colors">
+                  Yarn Washing &amp; Care Manual
+                </a>
+              </li>
+              <li>
+                <a href="#custom-studio" className="hover:text-primary transition-colors">
+                  Slow-Made Movement FAQ
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Delivery & Trust */}
-          <div className="space-y-2.5">
-            <h4 className="text-foreground text-[10px] font-semibold tracking-wider uppercase">
-              Shipping & Help
+          {/* Shipping & Help */}
+          <div className="space-y-3">
+            <h4 className="text-on-surface font-mono text-[10px] font-bold tracking-wider uppercase">
+              Shipping &amp; Support
             </h4>
-            <ul className="text-muted-foreground space-y-1.5">
+            <ul className="text-muted-foreground space-y-2">
               <li>
                 <span className="text-muted-foreground">Pan-India via Shiprocket</span>
               </li>
@@ -149,10 +157,10 @@ export function Footer() {
                 <span className="text-muted-foreground">Free delivery above ₹999</span>
               </li>
               <li>
-                <span className="text-muted-foreground">7-Day exchange guarantee</span>
+                <span className="text-muted-foreground">7-Day exchange policy</span>
               </li>
               <li>
-                <span className="text-muted-foreground">help@yarndelight.in</span>
+                <span className="text-primary">help@yarndelight.in</span>
               </li>
             </ul>
           </div>
@@ -161,12 +169,13 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-border/60 text-muted-foreground flex flex-col items-center justify-between gap-4 border-t pt-6 text-xs sm:flex-row">
           <p>
-            © {new Date().getFullYear()} Yarn Delight. Crafted with slow-made integrity in India.
+            © {new Date().getFullYear()} Yarn Delight Atelier. Slow-made slow-fashion integrity in
+            India.
           </p>
-          <div className="flex gap-4 text-[11px]">
-            <span className="text-muted-foreground">Razorpay UPI & Cards</span>
+          <div className="flex gap-4 font-mono text-[11px]">
+            <span>Razorpay 256-bit SSL</span>
             <span>•</span>
-            <span className="text-muted-foreground">Shiprocket Logistics</span>
+            <span>Shiprocket Pan-India Logistics</span>
           </div>
         </div>
       </div>

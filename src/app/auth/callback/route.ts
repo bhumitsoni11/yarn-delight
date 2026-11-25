@@ -1,0 +1,10 @@
+import { NextResponse } from "next/server"
+
+export async function GET(request: Request) {
+  const { searchParams, origin } = new URL(request.url)
+  const code = searchParams.get("code")
+  const next = searchParams.get("next") ?? "/account"
+
+  // Redirect to next path or account dashboard
+  return NextResponse.redirect(`${origin}${next}`)
+}
